@@ -9,18 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.todoapp.model.Todo;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@Controller
+@Controller //コントローラーであることを示すアノテーション
 public class TodoController {
-    private List<Todo> todos = new ArrayList<>();
+    private List<Todo> todos = new ArrayList<>();// ToDoリストを保持するリスト
     
-    @GetMapping("/") //ブラウザで / にアクセスしたとき、ToDoリストを渡す
+    @GetMapping("/") //ブラウザで "/" にアクセスしたとき、ToDoリストを渡す
     public String index(Model model) {
-        model.addAttribute("todos", todos);
-        return "index"; 
+        model.addAttribute("todos", todos);// モデルにデータを追加
+        return "index"; //index.htmlを表示
     }
 
     @PostMapping("/add") //フォームで入力されたタイトルを追加
@@ -28,7 +27,7 @@ public class TodoController {
         if (!title.isEmpty()) {
             todos.add(new Todo(title));
         }        
-        return "redirect:/";
+        return "redirect:/";//元のページに戻ります
     }
 
     @PostMapping("/delete") //指定した番号のToDoを削除
@@ -36,7 +35,7 @@ public class TodoController {
         if(index >= 0 && index < todos.size()) {
             todos.remove(index);
         }
-        return "redirect:/";
+        return "redirect:/";//元のページに戻ります
     }
     
     @PostMapping("/toggle")
